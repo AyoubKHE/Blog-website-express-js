@@ -1,0 +1,33 @@
+<header class="header">
+  <a href="/" class="header__logo">Admin Panel</a>
+
+  <nav class="header__nav">
+    <ul>
+      <li>
+        <a href="/" class="">Home</a>
+      </li>
+      <li>
+        <a href="/about" class="">About</a>
+      </li>
+      <li>
+        <a href="/contact" class="">Contact</a>
+      </li>
+    </ul>
+
+  </nav>
+
+  <% if (null) { %>
+    <div class="header__button">
+      <a href="/logout">
+        Logout
+      </a>
+    </div>
+    <% } else { %>
+      <div class="header__button">
+        <a style="text-decoration: none; display: inline-block; width: 60px; margin-bottom: 2px;" href="/logout">
+          Sign in
+        </a>
+      </div>
+      <% } %>
+
+</header>
