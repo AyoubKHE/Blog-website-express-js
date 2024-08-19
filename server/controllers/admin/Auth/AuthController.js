@@ -17,15 +17,15 @@ module.exports = {
 
     login: async (request, response) => {
 
-        async function loadUserPosts(userID) {
-            try {
-                return (await User.findOne({ _id: userID }).lean()).posts;
+        // async function loadUserPosts(userID) {
+        //     try {
+        //         return (await User.findOne({ _id: userID }).lean()).posts;
 
-            } catch (error) {
-                return null;
-            }
+        //     } catch (error) {
+        //         return null;
+        //     }
 
-        }
+        // }
 
         function buildRefreshToken(userID) {
             return jwt.sign(
@@ -101,12 +101,13 @@ module.exports = {
             response.cookie('refreshToken', refreshToken, { secure: true, httpOnly: true });
 
 
-            let userPosts = await loadUserPosts(user._id);
+            // let userPosts = await loadUserPosts(user._id);
+            let userPosts = user.posts;
             if (userPosts) {
                 return response.render("admin/dashboard", { userPosts, layout: adminLayout });
             }
             else {
-                response.send("Problem occurred when fetching posts");
+                return response.send("Problem occurred when fetching posts");
             }
 
         }

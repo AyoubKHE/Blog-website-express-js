@@ -25,9 +25,10 @@ function handle(request, response, next) {
                 let refreshTokenPayload = jwt.verify(refreshToken, process.env.JWT_SECRET);
                 let newAccessToken = buildNewAccessToken(refreshTokenPayload.userData.userID);
                 response.cookie('accessToken', newAccessToken, { secure: true, httpOnly: true });
+                request.userId = accessTokenPayload.userData.userID;
                 return next();
             } catch (error) {
-    
+
                 return response.sendStatus(401);
             }
         }
@@ -41,6 +42,7 @@ function handle(request, response, next) {
     if (accessToken != undefined) {
         try {
             let accessTokenPayload = jwt.verify(accessToken, process.env.JWT_SECRET);
+            request.userId = accessTokenPayload.userData.userID;
             next();
         } catch (error) {
 
