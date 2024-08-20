@@ -7,6 +7,8 @@ const setMiddlewars = require("./server/middlewares/main.js").setMiddlewars;
 const app = express();
 const PORT = process.env.APP_PORT;
 
+app.set('layout', './layouts/main');
+app.set('view engine', 'ejs');
 
 (async function () {
     try {
@@ -21,7 +23,3 @@ const PORT = process.env.APP_PORT;
 })();
 
 setMiddlewars(app);
-
-app.set('layout', './layouts/main');
-app.set('view engine', 'ejs');
-
