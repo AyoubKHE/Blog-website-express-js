@@ -65,40 +65,57 @@ module.exports = {
     },
 
     getSinglePost: async (request, response) => {
-        // let postID = request.params.id;
+        let postID = request.params.id;
 
-        // try {
+        try {
 
-        //     let postData = await Post.findById({ _id: postID });
+            let allUserPosts = (await User.find({ "posts._id": postID }))[0].posts;
 
-        //     response.render("post", { postData });
+            const postData = allUserPosts.id(postID);
+            response.render("post", { postData });
 
-        // } catch (error) {
-        //     console.log(error);
-        //     response.sendStatus(500);
-        // }
+        } catch (error) {
+            console.log(error);
+            response.sendStatus(500);
+        }
 
     },
 
     search: async (request, response) => {
 
-        // let searchTerm = request.body.searchTerm.replace(/[^a-zA-Z0-9 ]/g, "");
+        let searchTerm = request.body.searchTerm.replace(/[^a-zA-Z0-9 ]/g, "");
 
-        // try {
+        try {
 
-        //     let postsData = await Post.find({
-        //         $or: [
-        //             { title: { $regex: new RegExp(searchTerm, 'i') } },
-        //             { body: { $regex: new RegExp(searchTerm, 'i') } }
-        //         ]
-        //     });
+            let postsData = await User.aggregate([
+                {
+                    $unwind: "$posts"
+                },
+                {
+                    $match: {
+                        $or: [
+                            { "posts.title": { $regex: new RegExp(searchTerm, 'i') } },
+                            { "posts.body": { $regex: new RegExp(searchTerm, 'i') } }
+                        ]
+                    }
+                },
+                {
+                    $project: {
+                        _id: 0,
+                        title: "$posts.title",
+                        body: "$posts.body",
+                        createdAt:"$posts.createdAt"
+                    }
+                }
+            ]);
 
-        //     response.render("search", { postsData });
 
-        // } catch (error) {
-        //     console.log(error);
-        //     response.sendStatus(500);
-        // }
+            response.render("search", { postsData });
+
+        } catch (error) {
+            console.log(error);
+            response.sendStatus(500);
+        }
 
     }
 };
