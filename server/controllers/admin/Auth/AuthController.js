@@ -192,10 +192,10 @@ module.exports = {
                     await sendEmailVerification(emailVerificationToken);
                 });
 
-                response.sendStatus(200);
+                return response.sendStatus(200);
             } catch (error) {
                 console.log(error);
-                response.sendStatus(500);
+                return response.sendStatus(500);
             }
         }
 
@@ -204,7 +204,7 @@ module.exports = {
             return;
         }
 
-        await register();
+        return await register();
 
     },
 
