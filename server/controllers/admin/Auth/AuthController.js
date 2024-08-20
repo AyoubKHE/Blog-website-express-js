@@ -11,7 +11,7 @@ const withTransaction = require("../../../config/db").withTransaction;
 module.exports = {
     loginForm: async (request, response) => {
 
-        response.render("admin/index", { layout: adminLayout });
+        return response.render("admin/index", { layout: adminLayout });
 
     },
 
@@ -104,7 +104,7 @@ module.exports = {
 
     registerForm: async (request, response) => {
 
-        response.render("admin/register", { layout: adminLayout });
+       return response.render("admin/register", { layout: adminLayout });
 
     },
 
@@ -219,13 +219,13 @@ module.exports = {
                 user.emailVerifiedAt = new Date();
                 user.emailVerificationToken = null;
                 await user.save();
-                response.send("Email verification succeeded");
+                return response.send("Email verification succeeded");
             }
             else {
-                response.send("User not found");
+                return response.send("User not found");
             }
         } catch (error) {
-            response.sendStatus(500);
+            return response.sendStatus(500);
         }
 
     }

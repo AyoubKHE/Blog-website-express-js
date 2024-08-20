@@ -57,10 +57,10 @@ module.exports = {
                 olderPostsLink = await buildOlderPostsLink(page, perPage, session);
             });
 
-            response.render("index", { postsData, olderPostsLink });
+            return response.render("index", { postsData, olderPostsLink });
         } catch (error) {
             console.log(error);
-            response.sendStatus(500);
+            return response.sendStatus(500);
         }
     },
 
@@ -72,11 +72,11 @@ module.exports = {
             let allUserPosts = (await User.find({ "posts._id": postID }))[0].posts;
 
             const postData = allUserPosts.id(postID);
-            response.render("post", { postData });
+            return response.render("post", { postData });
 
         } catch (error) {
             console.log(error);
-            response.sendStatus(500);
+            return response.sendStatus(500);
         }
 
     },
@@ -110,11 +110,11 @@ module.exports = {
             ]);
 
 
-            response.render("search", { postsData });
+            return response.render("search", { postsData });
 
         } catch (error) {
             console.log(error);
-            response.sendStatus(500);
+            return response.sendStatus(500);
         }
 
     }

@@ -5,7 +5,7 @@ const adminLayout = "./layouts/admin.ejs";
 
 module.exports = {
     create: (request, response) => {
-        response.render("admin/add-post", { layout: adminLayout });
+        return response.render("admin/add-post", { layout: adminLayout });
     },
 
     store: async (request, response) => {
@@ -37,7 +37,7 @@ module.exports = {
 
             const postData = allUserPosts.id(request.params.id);
 
-            response.render("admin/edit-post", { postData, layout: adminLayout });
+            return response.render("admin/edit-post", { postData, layout: adminLayout });
 
         } catch (error) {
             return response.sendStatus(500);
