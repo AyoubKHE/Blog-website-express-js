@@ -17,16 +17,6 @@ module.exports = {
 
     login: async (request, response) => {
 
-        // async function loadUserPosts(userID) {
-        //     try {
-        //         return (await User.findOne({ _id: userID }).lean()).posts;
-
-        //     } catch (error) {
-        //         return null;
-        //     }
-
-        // }
-
         function buildRefreshToken(userID) {
             return jwt.sign(
                 {
@@ -100,8 +90,6 @@ module.exports = {
             response.cookie('accessToken', accessToken, { secure: true, httpOnly: true });
             response.cookie('refreshToken', refreshToken, { secure: true, httpOnly: true });
 
-
-            // let userPosts = await loadUserPosts(user._id);
             let userPosts = user.posts;
             if (userPosts) {
                 return response.render("admin/dashboard", { userPosts, layout: adminLayout });
