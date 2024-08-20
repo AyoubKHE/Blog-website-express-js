@@ -31,9 +31,11 @@ module.exports = {
 
             let allUserPosts = (await User.findById({ _id: request.userId })).posts;
 
-            let postData = allUserPosts.filter((post) => {
-                return post._id == request.params.id
-            })[0];
+            // let postData = allUserPosts.filter((post) => {
+            //     return post._id == request.params.id
+            // })[0];
+
+            const postData = allUserPosts.id(request.params.id);
 
             response.render("admin/edit-post", { postData, layout: adminLayout });
 
