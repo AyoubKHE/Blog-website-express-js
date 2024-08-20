@@ -9,10 +9,15 @@ const PORT = process.env.APP_PORT;
 
 
 (async function () {
-    await connectDB();
-    app.listen(PORT, () => {
-        console.log(`App listening on port ${PORT}`);
-    });
+    try {
+        await connectDB();
+        app.listen(PORT, () => {
+            console.log(`App listening on port ${PORT}`);
+        });
+    } catch (error) {
+        console.log(error);
+    }
+
 })();
 
 setMiddlewars(app);
