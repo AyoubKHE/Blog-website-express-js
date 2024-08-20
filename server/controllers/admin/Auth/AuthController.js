@@ -168,6 +168,7 @@ module.exports = {
                 return info;
             } catch (error) {
                 console.log(`Message not sent : ${error}`);
+                throw error;
             }
         }
 
