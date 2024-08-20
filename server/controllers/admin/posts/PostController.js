@@ -48,16 +48,29 @@ module.exports = {
     update: async (request, response) => {
         try {
 
-            let allUserPosts = (await User.findById({ _id: request.userId })).posts;
+            await User.updateOne({ "posts._id": request.params.id },
+                {
+                    $set: {
+                        'posts.$[post].title': request.body.title,
+                        'posts.$[post].body': request.body.body,
+                        'posts.$[post].updatedAt': new Date()
+                    }
+                },
+                {
+                    arrayFilters: [
+                        { "post._id": request.params.id }
+                    ]
+                }
+            );
 
-            let postData = allUserPosts.filter((post) => {
-                return post._id == request.params.id
-            })[0];
+            return response.sendStatus(200);
 
-            await postData.updateOne({
-                title: request.body.title,
-                body: request.body.body
-            });
+        } catch (error) {
+            return response.sendStatus(500);
+        }
+    },
+    destroy: async (request, response) => {
+        try {
 
             return response.sendStatus(200);
 
