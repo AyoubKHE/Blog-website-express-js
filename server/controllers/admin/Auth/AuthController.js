@@ -25,7 +25,7 @@ module.exports = {
                         userID: userID
                     },
                     iat: Date.now(),
-                    exp: Math.floor(Date.now() / 1000) + (86400) // one day
+                    exp: Math.floor(Date.now() / 1000) + (86400) // une journée
                 },
                 process.env.JWT_SECRET
             );
