@@ -20,5 +20,6 @@ router.get("/post/create", JwtAuth, postController.create);
 router.post("/post", JwtAuth, postController.store);
 router.get("/post/:id/edit", JwtAuth, postController.edit);
 router.put("/post/:id", JwtAuth, postController.update);
+router.delete("/post/:id", JwtAuth, postController.delete);
 
 module.exports = router;

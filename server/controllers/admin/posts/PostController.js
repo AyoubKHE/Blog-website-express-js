@@ -69,7 +69,7 @@ module.exports = {
             return response.sendStatus(500);
         }
     },
-    destroy: async (request, response) => {
+    delete: async (request, response) => {
         try {
 
             return response.sendStatus(200);
