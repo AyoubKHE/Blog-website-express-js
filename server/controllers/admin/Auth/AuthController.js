@@ -25,9 +25,12 @@ module.exports = {
                         userID: userID
                     },
                     iat: Date.now(),
-                    exp: Math.floor(Date.now() / 1000) + (86400) // une journée
+                    // exp: Math.floor(Date.now() / 1000) + (86400) // une journée
                 },
-                process.env.JWT_SECRET
+                process.env.JWT_SECRET,
+                {
+                    expiresIn: 24 * 60 * 60 // une journée
+                }
             );
         }
 
@@ -39,10 +42,14 @@ module.exports = {
                         userID: userID
                     },
                     iat: Date.now(),
-                    exp: Math.floor(Date.now() / 1000) + (900), // 15 minutes
-                    // exp: Math.floor(Date.now() / 1000) + (5) // 5 secondes
+                    // exp: Math.floor(Date.now() / 1000) + (900), // 15 minutes
+                    // // exp: Math.floor(Date.now() / 1000) + (5) // 5 secondes
                 },
-                process.env.JWT_SECRET
+                process.env.JWT_SECRET,
+                {
+                    expiresIn: 15 * 60 // 15 minutes,
+                    // expiresIn: 5 //  5 secondes
+                }
             );
 
         }
@@ -104,7 +111,7 @@ module.exports = {
 
     registerForm: async (request, response) => {
 
-       return response.render("admin/register", { layout: adminLayout });
+        return response.render("admin/register", { layout: adminLayout });
 
     },
 
