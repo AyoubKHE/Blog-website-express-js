@@ -14,6 +14,7 @@ router.post('/login', authController.login);
 router.get('/register', authController.registerForm);
 router.post('/register', authController.register);
 router.get('/verify-email/:emailVerificationToken', authController.verifyEmail);
+router.get('/logout', authController.logout);
 
 
 router.get("/post/create", JwtAuth, postController.create);

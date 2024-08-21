@@ -235,5 +235,13 @@ module.exports = {
             return response.sendStatus(500);
         }
 
-    }
+    },
+
+    logout: async (request, response) => {
+
+        response.cookie('accessToken', '', { maxAge: 1 });
+        response.cookie('refreshToken', '', { maxAge: 1 });
+
+        return response.sendStatus(200);
+    },
 };
