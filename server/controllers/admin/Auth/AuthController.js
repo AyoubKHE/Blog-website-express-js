@@ -94,8 +94,8 @@ module.exports = {
             const accessToken = buildAccessToken(user._id);
             const refreshToken = buildRefreshToken(user._id);
 
-            response.cookie('accessToken', accessToken, { secure: true, httpOnly: true });
-            response.cookie('refreshToken', refreshToken, { secure: true, httpOnly: true });
+            response.cookie('accessToken', accessToken, { secure: true, httpOnly: true, maxAge: 24 * 15 * 60 * 1000 });
+            response.cookie('refreshToken', refreshToken, { secure: true, httpOnly: true, maxAge: 24 * 15 * 60 * 1000 });
 
             let userPosts = user.posts;
             if (userPosts) {

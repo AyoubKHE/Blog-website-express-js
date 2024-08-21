@@ -24,7 +24,7 @@ function handle(request, response, next) {
             try {
                 let refreshTokenPayload = jwt.verify(refreshToken, process.env.JWT_SECRET);
                 let newAccessToken = buildNewAccessToken(refreshTokenPayload.userData.userID);
-                response.cookie('accessToken', newAccessToken, { secure: true, httpOnly: true });
+                response.cookie('accessToken', newAccessToken, { secure: true, httpOnly: true, maxAge: 24 * 15 * 60 * 1000 });
                 request.userId = accessTokenPayload.userData.userID;
                 return next();
             } catch (error) {
